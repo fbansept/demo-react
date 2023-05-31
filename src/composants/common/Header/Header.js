@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Header.scss";
 import Bouton from "../Bouton/Bouton";
 
-export default function Header({ children }) {
-  const [connecte, setConnecte] = useState(false);
-
-  let [utilisateur, setUtilisateur] = useState({ nom: "franck", age : 35 });
-
+export default function Header({ children , setConnecte, connecte }) {
+  
   const onDeconnexion = (e) => {
     setConnecte(false);
   };
@@ -15,17 +12,21 @@ export default function Header({ children }) {
     setConnecte(true);
   };
 
-  const onClicLogo = (e) => {
-    utilisateur.nom = "tom"
-    setUtilisateur({...utilisateur});
-  };
+  // const onClicLogo = (e) => {
+  //   //listePrenom.push("nouvel utilisateur");
+
+  //   const infoSupplementaires = { ville: "Belfort", genre : "homme"};
+
+  //   const franckPlus =  {...utilisateur , ...infoSupplementaires}
+
+  //   setListePrenom([...listePrenom, "nouvel utiliateur"]);
+  //   console.log(listePrenom.length);
+  // };
 
   return (
     <header>
       <div className="conteneur-gauche">
-        {utilisateur.nom}
         <img
-          onClick={onClicLogo}
           className="logo"
           src={process.env.PUBLIC_URL + "/logo.png"}
           alt="logo"
