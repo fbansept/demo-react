@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.scss";
 import Bouton from "../Bouton/Bouton";
 
-const onDeconnexion = (e) => {
-  alert("Deconnexion");
-};
-
 export default function Header({ children }) {
+  const [connecte, setConnecte] = useState(false);
+
+  let [utilisateur, setUtilisateur] = useState({ nom: "franck", age : 35 });
+
+  const onDeconnexion = (e) => {
+    setConnecte(false);
+  };
+
+  const onConnexion = (e) => {
+    setConnecte(true);
+  };
+
+  const onClicLogo = (e) => {
+    utilisateur.nom = "tom"
+    setUtilisateur({...utilisateur});
+  };
+
   return (
     <header>
       <div className="conteneur-gauche">
+        {utilisateur.nom}
         <img
+          onClick={onClicLogo}
           className="logo"
           src={process.env.PUBLIC_URL + "/logo.png"}
           alt="logo"
@@ -22,16 +37,19 @@ export default function Header({ children }) {
               Accueil
             </Bouton>
           </li>
-          <li>
-            <Bouton lien={"/connexion"} icone={"right-to-bracket"}>
-              Connexion
-            </Bouton>
-          </li>
-          <li>
-            <Bouton icone={"right-from-bracket"} evenement={onDeconnexion}>
-              Déconnexion
-            </Bouton>
-          </li>
+          {connecte ? (
+            <li>
+              <Bouton icone={"right-from-bracket"} evenement={onDeconnexion}>
+                Déconnexion
+              </Bouton>
+            </li>
+          ) : (
+            <li>
+              <Bouton icone={"right-to-bracket"} evenement={onConnexion}>
+                Connexion
+              </Bouton>
+            </li>
+          )}
         </ul>
       </div>
       <div className="conteneur-droite"></div>
